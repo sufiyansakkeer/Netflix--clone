@@ -8,6 +8,6 @@ const kHeight = SizedBox(
   height: 10,
 );
 
-const kHeightMedium = SizedBox(
+const kHeight20 = SizedBox(
   height: 25,
 );

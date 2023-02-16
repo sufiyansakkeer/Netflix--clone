@@ -24,7 +24,7 @@ class ScreenDownload extends StatelessWidget {
           horizontal: 10,
         ),
         itemBuilder: (context, index) => _widgetList[index],
-        separatorBuilder: (context, index) => kHeightMedium,
+        separatorBuilder: (context, index) => kHeight20,
         itemCount: _widgetList.length,
       ),
     );
