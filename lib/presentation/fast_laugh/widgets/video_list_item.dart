@@ -26,7 +26,7 @@ class VideoListItem extends StatelessWidget {
                   radius: 25,
                   child: IconButton(
                     onPressed: () {},
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.volume_off_outlined,
                     ),
                   ),
@@ -84,7 +84,7 @@ class VideoActionWidget extends StatelessWidget {
         ),
         Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 16,
           ),
         ),

@@ -22,11 +22,11 @@ class ScreenSearch extends StatelessWidget {
             CupertinoSearchTextField(
               prefixIcon: Icon(
                 CupertinoIcons.search,
-                color: greyColor,
+                color: kGreyColor,
               ),
               suffixIcon: Icon(
                 CupertinoIcons.xmark_circle_fill,
-                color: greyColor,
+                color: kGreyColor,
               ),
               style: TextStyle(color: Colors.white),
             ),
