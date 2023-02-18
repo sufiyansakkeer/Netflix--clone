@@ -30,12 +30,23 @@ environment:
 dependencies:
   bordered_text: ^2.0.0
   cupertino_icons: ^1.0.2
+  dartz: ^0.10.1
+  dio: ^5.0.0
   flutter:
     sdk: flutter
+  flutter_bloc: ^8.1.2
+  freezed: ^2.3.2
+  get_it: ^7.2.0
   google_fonts: ^4.0.3
+  injectable: ^1.5.3
+  
+  json_annotation: ^4.8.0
+  json_serializable: ^6.6.1
   video_player: ^2.5.1
 
 dev_dependencies:
+  injectable_generator: ^1.5.3
+  build_runner: ^2.3.3
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter

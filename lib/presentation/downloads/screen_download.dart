@@ -1,14 +1,17 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:netflix_clone/core/constant/constants.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:netflix_clone/application/downloads/downloads_bloc.dart';
+import 'package:netflix_clone/core/constants.dart';
+
 import 'package:netflix_clone/presentation/widgets/app_bar_widget.dart';
 
 class ScreenDownload extends StatelessWidget {
   ScreenDownload({super.key});
   final _widgetList = [
     const _SmartDownload(),
-    Section2(),
+    const Section2(),
     const Section3(),
   ];
   @override
@@ -55,17 +58,23 @@ class _SmartDownload extends StatelessWidget {
 
 //*section 2
 class Section2 extends StatelessWidget {
-  Section2({
+  const Section2({
     super.key,
   });
-  final List imageList = [
-    "https://www.themoviedb.org/t/p/w1280/54VeaIGwNGsnztFjCOLCPL2rFto.jpg",
-    "https://www.themoviedb.org/t/p/w1280/2dmNDqlBIjSiFXRwwaTU7ywwLmT.jpg",
-    "https://www.themoviedb.org/t/p/w1280/hLYmLoSoUg25SbWl8gzy0dAdr1A.jpg",
-  ];
+
   @override
   Widget build(BuildContext context) {
+    // WidgetsBinding.instance.addPostFrameCallback(
+    //   (_) {
+    //     BlocProvider.of<DownloadsBloc>(context)
+    //         .add(const DownloadsEvent.getDownloadsImage());
+    //   },
+
+    // );
+    BlocProvider.of<DownloadsBloc>(context)
+        .add(const DownloadsEvent.getDownloadsImage());
     final Size size = MediaQuery.of(context).size;
+
     return Column(
       children: [
         const Text(
@@ -85,36 +94,45 @@ class Section2 extends StatelessWidget {
             color: Colors.grey,
           ),
         ),
-        SizedBox(
-          width: size.width,
-          height: size.width,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              CircleAvatar(
-                radius: size.width * 0.4,
-                backgroundColor: Colors.grey.withOpacity(0.5),
-              ),
-              DownloadsImageWidgets(
-                image: imageList[0],
-                angle: 15,
-                margin: const EdgeInsets.only(left: 180, bottom: 0),
-                size: Size(size.width * 0.4, size.width * 0.55),
-              ),
-              DownloadsImageWidgets(
-                image: imageList[1],
-                angle: -15,
-                margin: const EdgeInsets.only(right: 180, bottom: 0),
-                size: Size(size.width * 0.4, size.width * 0.55),
-              ),
-              DownloadsImageWidgets(
-                image: imageList[2],
-                angle: 0,
-                margin: const EdgeInsets.only(bottom: 0),
-                size: Size(size.width * 0.4, size.width * 0.6),
-              ),
-            ],
-          ),
+        BlocBuilder<DownloadsBloc, DownloadsState>(
+          builder: (context, state) {
+            return SizedBox(
+              width: size.width,
+              height: size.width,
+              child: state.isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        CircleAvatar(
+                          radius: size.width * 0.4,
+                          backgroundColor: Colors.grey.withOpacity(0.5),
+                        ),
+                        DownloadsImageWidgets(
+                          image:
+                              "$imageAppendUrl${state.downloads[0].posterPath}",
+                          angle: 15,
+                          margin: const EdgeInsets.only(left: 180, bottom: 0),
+                          size: Size(size.width * 0.4, size.width * 0.55),
+                        ),
+                        DownloadsImageWidgets(
+                          image:
+                              "$imageAppendUrl${state.downloads[1].posterPath}",
+                          angle: -15,
+                          margin: const EdgeInsets.only(right: 180, bottom: 0),
+                          size: Size(size.width * 0.4, size.width * 0.55),
+                        ),
+                        DownloadsImageWidgets(
+                          image:
+                              "$imageAppendUrl${state.downloads[2].posterPath}",
+                          angle: 0,
+                          margin: const EdgeInsets.only(bottom: 0),
+                          size: Size(size.width * 0.4, size.width * 0.6),
+                        ),
+                      ],
+                    ),
+            );
+          },
         ),
       ],
     );

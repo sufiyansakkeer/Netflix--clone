@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:netflix_clone/core/constant/constants.dart';
+import 'package:netflix_clone/core/constants.dart';
 import 'package:netflix_clone/presentation/search_screen/widgets/search_idle.dart';
 import 'package:netflix_clone/presentation/search_screen/widgets/title_search.dart';
 import 'package:netflix_clone/presentation/widgets/main_card.dart';

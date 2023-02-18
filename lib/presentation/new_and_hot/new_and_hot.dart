@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:netflix_clone/core/colors/colors.dart';
-import 'package:netflix_clone/core/constant/constants.dart';
+import 'package:netflix_clone/core/colors.dart';
+import 'package:netflix_clone/core/constants.dart';
 import 'package:netflix_clone/presentation/home/widgets/custom_button_widget.dart';
 import 'package:netflix_clone/presentation/new_and_hot/widgets/coming_soon.dart';
 import 'package:netflix_clone/presentation/new_and_hot/widgets/everyone_watching.dart';

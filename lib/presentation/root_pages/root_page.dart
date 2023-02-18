@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:netflix_clone/core/colors/colors.dart';
+import 'package:netflix_clone/core/colors.dart';
 import 'package:netflix_clone/presentation/downloads/screen_download.dart';
 import 'package:netflix_clone/presentation/fast_laugh/fast_laugh.dart';
 import 'package:netflix_clone/presentation/home/home_screen.dart';
