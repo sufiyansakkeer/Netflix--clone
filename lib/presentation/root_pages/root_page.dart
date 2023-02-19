@@ -16,7 +16,7 @@ class RootPage extends StatelessWidget {
       const ScreenHome(),
       const ScreenNewAndHot(),
       const ScreenFastAndLaugh(),
-      const ScreenSearch(),
+      ScreenSearch(),
       ScreenDownload(),
     ];
     return Scaffold(

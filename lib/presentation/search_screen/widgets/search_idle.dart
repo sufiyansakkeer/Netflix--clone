@@ -79,7 +79,7 @@ class TopSearchItemTile extends StatelessWidget {
         Expanded(
           child: Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,
             ),

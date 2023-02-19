@@ -19,6 +19,7 @@ class SearchImplementation implements SearchService {
           await Dio(BaseOptions()).get(ApiEndClass.search, queryParameters: {
         "query": movieQuery,
       });
+      log(response.data.toString());
       if (response.statusCode == 200 || response.statusCode == 201) {
         final result = SearchResp.fromJson(response.data);
 
@@ -26,6 +27,9 @@ class SearchImplementation implements SearchService {
       } else {
         return const Left(MainFailure.serverFailure());
       }
+    } on DioError catch (e) {
+      log(e.toString());
+      return const Left(MainFailure.clientFailure());
     } catch (e) {
       log(e.toString());
       return const Left(MainFailure.clientFailure());

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:netflix_clone/core/constants.dart';
 import 'package:netflix_clone/presentation/widgets/main_card.dart';
 import 'package:netflix_clone/presentation/widgets/main_title.dart';
 
