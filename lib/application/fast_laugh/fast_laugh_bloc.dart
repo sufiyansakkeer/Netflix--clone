@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:netflix_clone/domain/core/failures/main_failure.dart';
+
 import 'package:netflix_clone/domain/downloads/i_downloads_repo.dart';
 import 'package:netflix_clone/domain/downloads/models/downloads.dart';
 
@@ -34,10 +34,10 @@ class FastLaughBloc extends Bloc<FastLaughEvent, FastLaughState> {
           isError: false,
         ));
         //get trending movies
-        final _result = await _downloadServices.getDownloadsImage();
+        final result = await _downloadServices.getDownloadsImage();
 
-        final _state = _result.fold((l) {
-          return FastLaughState(
+        final state = result.fold((l) {
+          return const FastLaughState(
             videoList: [],
             isLoading: false,
             isError: true,
@@ -51,7 +51,7 @@ class FastLaughBloc extends Bloc<FastLaughEvent, FastLaughState> {
         });
         //sent to ui
 
-        emit(_state);
+        emit(state);
       },
     );
     on<LikedVideo>((event, emit) {

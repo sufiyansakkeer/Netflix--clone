@@ -9,7 +9,7 @@ class HotAndNewState with _$HotAndNewState {
     required bool hasError,
   }) = _Initial;
 
-  factory HotAndNewState.initial() => HotAndNewState(
+  factory HotAndNewState.initial() => const HotAndNewState(
       comingSoon: [],
       everyoneIsWatching: [],
       isLoading: false,

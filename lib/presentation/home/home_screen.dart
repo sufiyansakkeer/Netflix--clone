@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:netflix_clone/application/home/home_bloc.dart';
 import 'package:netflix_clone/core/constants.dart';
+import 'package:netflix_clone/core/strings.dart';
 import 'package:netflix_clone/presentation/home/widgets/background_card.dart';
 
 import 'package:netflix_clone/presentation/home/widgets/number_title_card.dart';
@@ -14,6 +17,11 @@ class ScreenHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        BlocProvider.of<HomeBloc>(context).add(const GetHomeScreenData());
+      },
+    );
     return Scaffold(
       body: SafeArea(
         child: ValueListenableBuilder(
@@ -32,28 +40,85 @@ class ScreenHome extends StatelessWidget {
                 },
                 child: Stack(
                   children: [
-                    ListView(
-                      children: const [
-                        BackgroundCard(),
-                        MainTitleCard(
-                          title: 'Released in the past years',
-                        ),
-                        kHeight,
-                        MainTitleCard(
-                          title: 'Trending Now',
-                        ),
-                        kHeight,
-                        NumberTitleCard(),
-                        kHeight,
-                        MainTitleCard(
-                          title: 'Tense Drama',
-                        ),
-                        kHeight,
-                        MainTitleCard(
-                          title: 'South Indian movies',
-                        ),
-                        kHeight,
-                      ],
+                    BlocBuilder<HomeBloc, HomeState>(
+                      builder: (context, state) {
+                        if (state.isLoading) {
+                          return const Center(
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                            ),
+                          );
+                        } else if (state.hasError) {
+                          return const Center(
+                            child: Text("Error while getting data"),
+                          );
+                        }
+                        //*released Past year
+                        final releasedPastYear =
+                            state.pastYearMovieList.map((e) {
+                          return "$imageAppendUrl${e.posterPath}";
+                        }).toList();
+
+                        //*trending movie list
+                        final trendingMovieList =
+                            state.trendingMovieList.map((e) {
+                          return "$imageAppendUrl${e.posterPath}";
+                        }).toList();
+                        //*trends dramas list
+                        final trendsDramasList =
+                            state.trendsDramasMovieList.map((e) {
+                          return "$imageAppendUrl${e.posterPath}";
+                        }).toList();
+
+                        //*trends dramas list
+                        final southIndianList =
+                            state.southIndianMovieList.map((e) {
+                          return "$imageAppendUrl${e.posterPath}";
+                        }).toList();
+
+                        //*tv shows  list
+
+                        final tVShowList = state.trendingTVList.map(
+                          (e) {
+                            return "$imageAppendUrl${e.posterPath}";
+                          },
+                        ).toList();
+
+                        //*list view
+                        return ListView(
+                          children: [
+                            const BackgroundCard(),
+                            if (releasedPastYear.length >= 10)
+                              MainTitleCard(
+                                title: 'Released in the past years',
+                                posterList: releasedPastYear.sublist(0, 10),
+                              ),
+                            kHeight,
+                            if (trendingMovieList.length >= 10)
+                              MainTitleCard(
+                                title: 'Trending Now',
+                                posterList: trendingMovieList.sublist(0, 10),
+                              ),
+                            kHeight,
+                            NumberTitleCard(
+                              postersList: tVShowList.sublist(0, 10),
+                            ),
+                            kHeight,
+                            if (trendsDramasList.length >= 10)
+                              MainTitleCard(
+                                title: 'Tense Drama',
+                                posterList: trendsDramasList.sublist(0, 10),
+                              ),
+                            kHeight,
+                            if (southIndianList.length >= 10)
+                              MainTitleCard(
+                                title: 'South Indian movies',
+                                posterList: southIndianList.sublist(0, 10),
+                              ),
+                            kHeight,
+                          ],
+                        );
+                      },
                     ),
                     scrollNotifier.value
                         ? AnimatedContainer(

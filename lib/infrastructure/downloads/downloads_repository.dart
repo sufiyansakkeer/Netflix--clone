@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
@@ -21,7 +20,6 @@ class DownloadsRepository implements IDownloadRepo {
           return Downloads.fromJson(e);
         }).toList();
 
-        print(downloadList);
         return Right(downloadList);
       } else {
         return const Left(MainFailure.serverFailure());

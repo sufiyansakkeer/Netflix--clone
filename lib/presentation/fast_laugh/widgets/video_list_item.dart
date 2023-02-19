@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:netflix_clone/application/fast_laugh/fast_laugh_bloc.dart';
 import 'package:netflix_clone/core/constants.dart';
 import 'package:netflix_clone/core/strings.dart';
@@ -11,7 +10,7 @@ import 'package:video_player/video_player.dart';
 class VideoListItemInheritedWidget extends InheritedWidget {
   final Widget widget;
   final Downloads movieData;
-  VideoListItemInheritedWidget({
+  const VideoListItemInheritedWidget({
     Key? key,
     required this.widget,
     required this.movieData,
