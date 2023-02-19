@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:netflix_clone/application/downloads/downloads_bloc.dart';
 import 'package:netflix_clone/core/constants.dart';
+import 'package:netflix_clone/core/strings.dart';
 
 import 'package:netflix_clone/presentation/widgets/app_bar_widget.dart';
 

@@ -35,5 +35,3 @@ const TextStyle kHomeTitleText =
 
 const newAndHotImage =
     "https://www.themoviedb.org/t/p/w1066_and_h600_bestv2/lt0Z2aENqDUJkkxBxUnaW2r1o2o.jpg";
-
-const imageAppendUrl = "https://image.tmdb.org/t/p/w500";
