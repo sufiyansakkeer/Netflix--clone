@@ -7,8 +7,13 @@ import 'package:netflix_clone/presentation/widgets/video_widget.dart';
 class EveryOneWatching extends StatelessWidget {
   const EveryOneWatching({
     super.key,
+    required this.posterPath,
+    required this.movieName,
+    required this.description,
   });
-
+  final String posterPath;
+  final String movieName;
+  final String description;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -31,7 +36,9 @@ class EveryOneWatching extends StatelessWidget {
           ),
         ),
         kHeight50,
-        const VideoWidget(),
+        const VideoWidget(
+          imageUrl: newAndHotImage,
+        ),
         kHeight,
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
