@@ -19,7 +19,7 @@ class HotAndNewBloc extends Bloc<HotAndNewEvent, HotAndNewState> {
     on<LoadDataInComingSoon>((event, emit) async {
       //send loading to ui
       emit(
-        HotAndNewState(
+        const HotAndNewState(
           comingSoon: [],
           everyoneIsWatching: [],
           isLoading: true,
@@ -50,6 +50,36 @@ class HotAndNewBloc extends Bloc<HotAndNewEvent, HotAndNewState> {
     });
 
     //get hot and new data in TV
-    on<LoadDataInEveryOneIsWatching>((event, emit) {});
+    on<LoadDataInEveryOneIsWatching>((event, emit) async {
+      emit(
+        const HotAndNewState(
+          comingSoon: [],
+          everyoneIsWatching: [],
+          isLoading: true,
+          hasError: false,
+        ),
+      );
+
+      //get data from remote
+      final result = await _hotAndNewServices.getHotAndNewTVData();
+
+      //data to state
+      final newState = result.fold((MainFailure f) {
+        return const HotAndNewState(
+          comingSoon: [],
+          everyoneIsWatching: [],
+          isLoading: false,
+          hasError: true,
+        );
+      }, (HotAndNewResp resp) {
+        return HotAndNewState(
+          comingSoon: state.comingSoon,
+          everyoneIsWatching: resp.results!,
+          isLoading: false,
+          hasError: false,
+        );
+      });
+      emit(newState);
+    });
   }
 }

@@ -20,24 +20,28 @@ class EveryOneWatching extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         kHeight,
-        const Text(
-          "Friends",
-          style: TextStyle(
+        Text(
+          movieName,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: const TextStyle(
             fontSize: 20,
             color: kWhiteColor,
             fontWeight: FontWeight.bold,
           ),
         ),
         kHeight,
-        const Text(
-          'This hit sitcom follows the merry misadventures of six 20-something pals as that navigate the pitfalls of work, life and love in 1990 Manhattan',
-          style: TextStyle(
+        Text(
+          description,
+          maxLines: 4,
+          overflow: TextOverflow.ellipsis,
+          style: const TextStyle(
             color: kGreyColor,
           ),
         ),
         kHeight50,
-        const VideoWidget(
-          imageUrl: newAndHotImage,
+        VideoWidget(
+          imageUrl: posterPath,
         ),
         kHeight,
         Row(
