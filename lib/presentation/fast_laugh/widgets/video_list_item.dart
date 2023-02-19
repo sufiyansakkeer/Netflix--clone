@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:netflix_clone/application/fast_laugh/fast_laugh_bloc.dart';
 import 'package:netflix_clone/core/constants.dart';
 import 'package:netflix_clone/core/strings.dart';
@@ -66,9 +67,45 @@ class VideoListItem extends StatelessWidget {
                           : NetworkImage('$imageAppendUrl$posterPathData'),
                     ),
                     kHeight20,
-                    const VideoActionWidget(
-                      icon: Icons.emoji_emotions,
-                      title: 'lol',
+                    ValueListenableBuilder(
+                      valueListenable: likedVideosNotifiers,
+                      builder: (BuildContext context,
+                          Set<dynamic> newLikedListIds, Widget? _) {
+                        final _index = index;
+                        if (newLikedListIds.contains(_index)) {
+                          return GestureDetector(
+                            onTap: () {
+                              // BlocProvider.of<FastLaughBloc>(context).add(
+                              //   LikedVideo(
+                              //     id: _index,
+                              //   ),
+                              // );
+                              likedVideosNotifiers.value.remove(_index);
+                              likedVideosNotifiers.notifyListeners();
+                            },
+                            child: VideoActionWidget(
+                              icon: Icons.favorite_sharp,
+                              title: 'liked',
+                            ),
+                          );
+                        } else {
+                          return GestureDetector(
+                            onTap: () {
+                              // BlocProvider.of<FastLaughBloc>(context).add(
+                              //   LikedVideo(
+                              //     id: _index,
+                              //   ),
+                              // );
+                              likedVideosNotifiers.value.add(_index);
+                              likedVideosNotifiers.notifyListeners();
+                            },
+                            child: VideoActionWidget(
+                              icon: Icons.favorite_border_sharp,
+                              title: 'lol',
+                            ),
+                          );
+                        }
+                      },
                     ),
                     kHeight20,
                     const VideoActionWidget(

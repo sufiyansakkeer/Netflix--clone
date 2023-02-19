@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:netflix_clone/domain/core/failures/main_failure.dart';
@@ -17,37 +18,47 @@ final dummyVideoUrl = [
   "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
 ];
 
+ValueNotifier<Set> likedVideosNotifiers = ValueNotifier({});
+
 @injectable
 class FastLaughBloc extends Bloc<FastLaughEvent, FastLaughState> {
   FastLaughBloc(IDownloadRepo _downloadServices)
       : super(FastLaughState.initial()) {
-    on<Initialized>((event, emit) async {
-      //for giving loading in ui
+    on<Initialized>(
+      (event, emit) async {
+        //for giving loading in ui
 
-      emit(const FastLaughState(
-        videoList: [],
-        isLoading: true,
-        isError: false,
-      ));
-      //get trending movies
-      final _result = await _downloadServices.getDownloadsImage();
-
-      final _state = _result.fold((l) {
-        return const FastLaughState(
+        emit(const FastLaughState(
           videoList: [],
-          isLoading: false,
-          isError: true,
-        );
-      }, (resp) {
-        return FastLaughState(
-          videoList: resp,
-          isLoading: false,
+          isLoading: true,
           isError: false,
-        );
-      });
-      //sent to ui
+        ));
+        //get trending movies
+        final _result = await _downloadServices.getDownloadsImage();
 
-      emit(_state);
+        final _state = _result.fold((l) {
+          return FastLaughState(
+            videoList: [],
+            isLoading: false,
+            isError: true,
+          );
+        }, (resp) {
+          return FastLaughState(
+            videoList: resp,
+            isLoading: false,
+            isError: false,
+          );
+        });
+        //sent to ui
+
+        emit(_state);
+      },
+    );
+    on<LikedVideo>((event, emit) {
+      likedVideosNotifiers.value.add(event.id);
+    });
+    on<UnLikeVideo>((event, emit) {
+      likedVideosNotifiers.value.remove(event.id);
     });
   }
 }
