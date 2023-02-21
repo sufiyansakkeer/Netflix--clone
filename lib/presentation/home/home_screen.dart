@@ -30,7 +30,7 @@ class ScreenHome extends StatelessWidget {
               return NotificationListener<UserScrollNotification>(
                 onNotification: (notification) {
                   final ScrollDirection direction = notification.direction;
-                  print(direction);
+                  // print(direction);
                   if (direction == ScrollDirection.reverse) {
                     scrollNotifier.value = false;
                   } else if (direction == ScrollDirection.forward) {
@@ -52,72 +52,73 @@ class ScreenHome extends StatelessWidget {
                           return const Center(
                             child: Text("Error while getting data"),
                           );
-                        }
-                        //*released Past year
-                        final releasedPastYear =
-                            state.pastYearMovieList.map((e) {
-                          return "$imageAppendUrl${e.posterPath}";
-                        }).toList();
-
-                        //*trending movie list
-                        final trendingMovieList =
-                            state.trendingMovieList.map((e) {
-                          return "$imageAppendUrl${e.posterPath}";
-                        }).toList();
-                        //*trends dramas list
-                        final trendsDramasList =
-                            state.trendsDramasMovieList.map((e) {
-                          return "$imageAppendUrl${e.posterPath}";
-                        }).toList();
-
-                        //*trends dramas list
-                        final southIndianList =
-                            state.southIndianMovieList.map((e) {
-                          return "$imageAppendUrl${e.posterPath}";
-                        }).toList();
-
-                        //*tv shows  list
-
-                        final tVShowList = state.trendingTVList.map(
-                          (e) {
+                        } else {
+                          //*released Past year
+                          final releasedPastYear =
+                              state.pastYearMovieList.map((e) {
                             return "$imageAppendUrl${e.posterPath}";
-                          },
-                        ).toList();
+                          }).toList();
 
-                        //*list view
-                        return ListView(
-                          children: [
-                            const BackgroundCard(),
-                            if (releasedPastYear.length >= 10)
-                              MainTitleCard(
-                                title: 'Released in the past years',
-                                posterList: releasedPastYear.sublist(0, 10),
+                          //*trending movie list
+                          final trendingMovieList =
+                              state.trendingMovieList.map((e) {
+                            return "$imageAppendUrl${e.posterPath}";
+                          }).toList();
+                          //*trends dramas list
+                          final trendsDramasList =
+                              state.trendsDramasMovieList.map((e) {
+                            return "$imageAppendUrl${e.posterPath}";
+                          }).toList();
+
+                          //*trends dramas list
+                          final southIndianList =
+                              state.southIndianMovieList.map((e) {
+                            return "$imageAppendUrl${e.posterPath}";
+                          }).toList();
+
+                          //*tv shows  list
+
+                          final tVShowList = state.trendingTVList.map(
+                            (e) {
+                              return "$imageAppendUrl${e.posterPath}";
+                            },
+                          ).toList();
+
+                          //*list view
+                          return ListView(
+                            children: [
+                              const BackgroundCard(),
+                              if (releasedPastYear.length >= 11)
+                                MainTitleCard(
+                                  title: 'Released in the past years',
+                                  posterList: releasedPastYear.sublist(0, 10),
+                                ),
+                              kHeight,
+                              if (trendingMovieList.length >= 11)
+                                MainTitleCard(
+                                  title: 'Trending Now',
+                                  posterList: trendingMovieList.sublist(0, 10),
+                                ),
+                              kHeight,
+                              NumberTitleCard(
+                                postersList: tVShowList.sublist(0, 10),
                               ),
-                            kHeight,
-                            if (trendingMovieList.length >= 10)
-                              MainTitleCard(
-                                title: 'Trending Now',
-                                posterList: trendingMovieList.sublist(0, 10),
-                              ),
-                            kHeight,
-                            NumberTitleCard(
-                              postersList: tVShowList.sublist(0, 10),
-                            ),
-                            kHeight,
-                            if (trendsDramasList.length >= 10)
-                              MainTitleCard(
-                                title: 'Tense Drama',
-                                posterList: trendsDramasList.sublist(0, 10),
-                              ),
-                            kHeight,
-                            if (southIndianList.length >= 10)
-                              MainTitleCard(
-                                title: 'South Indian movies',
-                                posterList: southIndianList.sublist(0, 10),
-                              ),
-                            kHeight,
-                          ],
-                        );
+                              kHeight,
+                              if (trendsDramasList.length >= 11)
+                                MainTitleCard(
+                                  title: 'Tense Drama',
+                                  posterList: trendsDramasList.sublist(0, 10),
+                                ),
+                              kHeight,
+                              if (southIndianList.length >= 10)
+                                MainTitleCard(
+                                  title: 'South Indian movies',
+                                  posterList: southIndianList.sublist(0, 10),
+                                ),
+                              kHeight,
+                            ],
+                          );
+                        }
                       },
                     ),
                     scrollNotifier.value

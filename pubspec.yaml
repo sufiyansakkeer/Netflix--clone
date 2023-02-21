@@ -29,20 +29,55 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   bordered_text: ^2.0.0
+
+
   cupertino_icons: ^1.0.2
-  dartz: ^0.10.1
+
+
+ #  here we use dartz package to use Either method ///
+  dartz: ^0.10.1 
+
+  #
+    #Dio is a powerful HTTP client for dart, which supports Interceptors,
+   #Global configuration, FormData, Request Cancellation, 
+   #File downloading, Timeout, etc. By comparing the http package with Dio,
+    #Dio provides an intuitive API for performing advanced network tasks with minimal effort. 
+  
   dio: ^5.0.0
+
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.2
+
+   
+  #Here I used freezed package to generation code for 
+  #immutable classes that has a simple syntax/API without 
+  #compromising on the features  
+
+  #freezed package will make the bloc easy to use
+  #
   freezed: ^2.3.2
   freezed_annotation: ^2.2.0
+
+
+  # here we used get it , it is a service locator
+   #which allows a great interface and their implementation ,
+    #and access those implementation globally  ///
   get_it: ^7.2.0
+
+
   google_fonts: ^4.0.3
+
+  # Injectable generate code for us by providing annotation that we can use ///
   injectable: ^1.5.3
+
+
   intl: ^0.18.0
+
+  # An annotation is a form of representing syntactic metadata that can be added to our Dart code ///
   json_annotation: ^4.8.0
   json_serializable: ^6.6.1
+  # share the items ///
   share_plus: ^4.0.3
   video_player: ^2.3.0
 
